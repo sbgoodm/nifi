@@ -30,7 +30,6 @@ import org.apache.nifi.annotation.documentation.CapabilityDescription;
 import org.apache.nifi.annotation.documentation.SeeAlso;
 import org.apache.nifi.annotation.documentation.Tags;
 import org.apache.nifi.components.PropertyDescriptor;
-import org.apache.nifi.expression.ExpressionLanguageScope;
 import org.apache.nifi.flowfile.FlowFile;
 import org.apache.nifi.processor.ProcessContext;
 import org.apache.nifi.processor.ProcessSession;
@@ -61,7 +60,7 @@ public class TagS3Object extends AbstractS3Processor {
             .displayName("Tag Key")
             .description("The key of the tag that will be set on the S3 Object")
             .addValidator(new StandardValidators.StringLengthValidator(1, 127))
-            .expressionLanguageSupported(ExpressionLanguageScope.FLOWFILE_ATTRIBUTES)
+            .expressionLanguageSupported(true)
             .required(true)
             .build();
 
@@ -70,7 +69,7 @@ public class TagS3Object extends AbstractS3Processor {
             .displayName("Tag Value")
             .description("The value of the tag that will be set on the S3 Object")
             .addValidator(new StandardValidators.StringLengthValidator(1, 255))
-            .expressionLanguageSupported(ExpressionLanguageScope.FLOWFILE_ATTRIBUTES)
+            .expressionLanguageSupported(true)
             .required(true)
             .build();
 
@@ -82,7 +81,7 @@ public class TagS3Object extends AbstractS3Processor {
                     "set to false, the existing tags will be removed and the new tag will be set on the S3 object.")
             .addValidator(StandardValidators.BOOLEAN_VALIDATOR)
             .allowableValues("true", "false")
-            .expressionLanguageSupported(ExpressionLanguageScope.NONE)
+            .expressionLanguageSupported(false)
             .required(true)
             .defaultValue("true")
             .build();
@@ -92,15 +91,14 @@ public class TagS3Object extends AbstractS3Processor {
             .displayName("Version ID")
             .description("The Version of the Object to tag")
             .addValidator(StandardValidators.NON_EMPTY_VALIDATOR)
-            .expressionLanguageSupported(ExpressionLanguageScope.FLOWFILE_ATTRIBUTES)
+            .expressionLanguageSupported(true)
             .required(false)
             .build();
 
     public static final List<PropertyDescriptor> properties = Collections.unmodifiableList(
             Arrays.asList(KEY, BUCKET, VERSION_ID, TAG_KEY, TAG_VALUE, APPEND_TAG, ACCESS_KEY, SECRET_KEY,
                     CREDENTIALS_FILE, AWS_CREDENTIALS_PROVIDER_SERVICE, REGION, TIMEOUT, SSL_CONTEXT_SERVICE,
-                    ENDPOINT_OVERRIDE, SIGNER_OVERRIDE, PROXY_CONFIGURATION_SERVICE, PROXY_HOST, PROXY_HOST_PORT,
-                    PROXY_USERNAME, PROXY_PASSWORD));
+                    ENDPOINT_OVERRIDE, SIGNER_OVERRIDE, PROXY_HOST, PROXY_HOST_PORT));
 
     @Override
     protected List<PropertyDescriptor> getSupportedPropertyDescriptors() {

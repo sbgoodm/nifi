@@ -22,7 +22,6 @@ import com.amazonaws.services.s3.model.GetObjectTaggingResult;
 import com.amazonaws.services.s3.model.SetObjectTaggingRequest;
 import com.amazonaws.services.s3.model.Tag;
 import org.apache.nifi.components.PropertyDescriptor;
-import org.apache.nifi.proxy.ProxyConfigurationService;
 import org.apache.nifi.util.MockFlowFile;
 import org.apache.nifi.util.TestRunner;
 import org.apache.nifi.util.TestRunners;
@@ -244,7 +243,7 @@ public class TestTagS3Object {
     public void testGetPropertyDescriptors() throws Exception {
         TagS3Object processor = new TagS3Object();
         List<PropertyDescriptor> pd = processor.getSupportedPropertyDescriptors();
-        assertEquals("size should be eq", 20, pd.size());
+        assertEquals("size should be eq", 17, pd.size());
         assertTrue(pd.contains(TagS3Object.ACCESS_KEY));
         assertTrue(pd.contains(TagS3Object.AWS_CREDENTIALS_PROVIDER_SERVICE));
         assertTrue(pd.contains(TagS3Object.BUCKET));
@@ -256,11 +255,8 @@ public class TestTagS3Object {
         assertTrue(pd.contains(TagS3Object.SIGNER_OVERRIDE));
         assertTrue(pd.contains(TagS3Object.SSL_CONTEXT_SERVICE));
         assertTrue(pd.contains(TagS3Object.TIMEOUT));
-        assertTrue(pd.contains(ProxyConfigurationService.PROXY_CONFIGURATION_SERVICE));
         assertTrue(pd.contains(TagS3Object.PROXY_HOST));
         assertTrue(pd.contains(TagS3Object.PROXY_HOST_PORT));
-        assertTrue(pd.contains(TagS3Object.PROXY_USERNAME));
-        assertTrue(pd.contains(TagS3Object.PROXY_PASSWORD));
         assertTrue(pd.contains(TagS3Object.TAG_KEY));
         assertTrue(pd.contains(TagS3Object.TAG_VALUE));
         assertTrue(pd.contains(TagS3Object.APPEND_TAG));
